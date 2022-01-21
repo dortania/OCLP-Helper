@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		AE0677542771742F00097354 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0677532771742F00097354 /* main.m */; };
 		AE06775C2771743700097354 /* STPrivilegedTask.m in Sources */ = {isa = PBXBuildFile; fileRef = AE06775B2771743700097354 /* STPrivilegedTask.m */; };
+		AEC3ACD62798F84D005F5192 /* Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC3ACD52798F84D005F5192 /* Handler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		AE0677532771742F00097354 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AE06775A2771743700097354 /* STPrivilegedTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPrivilegedTask.h; sourceTree = "<group>"; };
 		AE06775B2771743700097354 /* STPrivilegedTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPrivilegedTask.m; sourceTree = "<group>"; };
+		AEC3ACD52798F84D005F5192 /* Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Handler.m; sourceTree = "<group>"; };
+		AEC3ACD72798F853005F5192 /* Handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Handler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				AE0677532771742F00097354 /* main.m */,
 				AE06775A2771743700097354 /* STPrivilegedTask.h */,
 				AE06775B2771743700097354 /* STPrivilegedTask.m */,
+				AEC3ACD52798F84D005F5192 /* Handler.m */,
+				AEC3ACD72798F853005F5192 /* Handler.h */,
 			);
 			path = "OCLP-Helper";
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC3ACD62798F84D005F5192 /* Handler.m in Sources */,
 				AE06775C2771743700097354 /* STPrivilegedTask.m in Sources */,
 				AE0677542771742F00097354 /* main.m in Sources */,
 			);
@@ -247,6 +253,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -255,6 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
