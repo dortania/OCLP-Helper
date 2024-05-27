@@ -1,0 +1,36 @@
+name: CI - Build
+
+on:
+  push:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-12
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build OCLP-Helper
+        run: xcodebuild
+
+      - name: Compress Packages
+        run: /usr/bin/ditto -c -k --sequesterRsrc --keepParent 'build/Release/OCLP-Helper' 'OCLP-Helper.zip'
+
+      - name: Upload OCLP-Helper (artifact)
+        uses: actions/upload-artifact@v2
+        with:
+            name: OCLP-Helper
+            path: OCLP-Helper.zip
+
+      - name: Upload OCLP-Helper (on release)
+        if: github.event_name == 'release'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: OCLP-Helper.zip
+          tag: ${{ github.ref }}
+          file_glob: true
