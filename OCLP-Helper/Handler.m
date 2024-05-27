@@ -16,15 +16,49 @@
     [self performSelectorInBackground:@selector(runProcess) withObject:nil];
 }
 
--(void)displayPKGInstallPopup {
+-(void)createAppWindowWithProgressBar {
+    NSRect frame = NSMakeRect(0, 0, 400, 200);
+    NSWindow *window = [[NSWindow alloc] initWithContentRect:frame styleMask:(NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable) backing:NSBackingStoreBuffered defer:NO];
+    [window setTitle:@"OpenCore Legacy Patcher"];
+    [window makeKeyAndOrderFront:nil];
+
+    /*
+    1. Add AppIcon to top center
+    2. Add text below icon: "Installing additional components..."
+    3. Add progress bar below text
+    */
+
+    NSImageView *iconView = [[NSImageView alloc] initWithFrame:NSMakeRect(150, 95, 100, 100)];
+    NSImage *icon = [NSImage imageNamed:@"AppIcon"];
+    [iconView setImage:icon];
+    [iconView setImageScaling:NSImageScaleProportionallyUpOrDown];
+    [iconView setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin];
+    [window.contentView addSubview:iconView];
+
+    NSTextField *textField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 40, 400, 50)];
+    [textField setStringValue:@"Installing additional components..."];
+    [textField setAlignment:NSTextAlignmentCenter];
+    [textField setEditable:NO];
+    [textField setBezeled:NO];
+    [textField setDrawsBackground:NO];
+    [textField setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin];
+    [textField setFont:[NSFont systemFontOfSize:18]];
+    [window.contentView addSubview:textField];
+
+    // Set progress bar width to 300
+    NSProgressIndicator *progressBar = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(50, 30, 300, 20)];
+    [progressBar setStyle:NSProgressIndicatorStyleBar];
+    [progressBar setIndeterminate:YES];
+    [progressBar setAutoresizingMask:NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin | NSViewMaxYMargin];
+    [progressBar startAnimation:nil];
+    [window.contentView addSubview:progressBar];
+
+    [window center];
+}
+
+-(void)spawnProgressWindow {
     dispatch_sync(dispatch_get_main_queue(), ^{
-        NSAlert *alert = [[NSAlert alloc] init];
-        NSImage *icon = [NSImage imageNamed:@"AppIcon"];
-        [alert setMessageText:@"OpenCore Legacy Patcher"];
-        [alert setInformativeText:@"OpenCore Legacy Patcher needs to install additional components to function properly. Please follow the instructions on the screen."];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setIcon:icon];
-        [alert runModal];
+        [self createAppWindowWithProgressBar];
     });
 }
 
@@ -83,7 +117,7 @@
         [privilegedTask setLaunchPath:@"/usr/sbin/installer"];
         [privilegedTask setArguments:arguments];
 
-        [self displayPKGInstallPopup];
+        [self spawnProgressWindow];
 
     } else {
         NSString *launchPath = arguments[1];
