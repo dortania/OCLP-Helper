@@ -11,6 +11,9 @@
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // Ensure we don't exit on parent process exit
+        setpgid(0, 0);
+
         NSApplication * app = [NSApplication sharedApplication];
         Handler *h = [[Handler alloc] init];
         [app setDelegate:h];
