@@ -64,15 +64,17 @@
 
 -(void)postPKGRunApp:(BOOL)isUpdating {
     NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/Library/Application Support/Dortania/OpenCore-Patcher.app/Contents/MacOS/OpenCore-Patcher"];
+
+    [task setLaunchPath:@"/usr/bin/open"];
 
     if (isUpdating) {
-        [task setArguments:@[@"--update_installed"]];
+        [task setArguments:@[@"-a", @"/Library/Application Support/Dortania/OpenCore-Patcher.app", @"--args", @"--update_installed"]];
+    } else {
+        [task setArguments:@[@"-a", @"/Library/Application Support/Dortania/OpenCore-Patcher.app"]];
     }
 
     [task launch];
-
-    sleep(5); // Wait for the app to launch
+    [task waitUntilExit];
 }
 
 -(void)runProcess {
