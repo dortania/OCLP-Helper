@@ -75,6 +75,8 @@
 
     [task launch];
     [task waitUntilExit];
+
+    sleep(5);
 }
 
 -(void)runProcess {
